@@ -28,7 +28,9 @@ Predict customer churn in telecom using Decision Tree, XGBoost, and SVM.
 
 2. 🔄 Preprocessing & Feature Engineering
 --**Scikit-learn**
-   **LabelEncoder, MinMaxScaler – Encoding and scaling SelectKBest, PCA – Dimensionality reduction, train_test_split – Data splitting** 
+   1. **LabelEncoder, MinMaxScaler – Encoding and scaling SelectKBest**
+   2. **PCA – Dimensionality reduction**
+   3. **train_test_split – Data splitting** 
 
 3. 🤖 Machine Learning Models
 --**Scikit-learn** 
@@ -36,11 +38,11 @@ Predict customer churn in telecom using Decision Tree, XGBoost, and SVM.
    2. SVC (Support Vector Classifier)
    3. XGBoost
    4. XGBClassifier – Gradient Boosting Model
-   
+
 4. 📈 Data Visualization
---**Matplotlib** – Basic plotting
---**Seaborn** – Statistical and heatmap visualizations
---**Power BI** - Creating a Dashboard
+   1. **Matplotlib** – Basic plotting
+   2. **Seaborn** – Statistical and heatmap visualizations
+   3. **Power BI** - Creating a Dashboard
 
 ## 📊Dataset
 Download from [Kaggle Telco Customer Churn](https://www.kaggle.com/blastchar/telco-customer-churn)
