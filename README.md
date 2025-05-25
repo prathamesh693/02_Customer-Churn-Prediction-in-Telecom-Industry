@@ -1,6 +1,6 @@
-# Telecom Customer Churn Prediction
+# Customer Churn Prediction in Telecom Industry
 
-## Overview
+## 📗Project Overview
 Predict customer churn in telecom using Decision Tree, XGBoost, and SVM.
 
 ## File Description
@@ -10,7 +10,7 @@ Predict customer churn in telecom using Decision Tree, XGBoost, and SVM.
 - `app.py`: Streamlit app for interactive predictions
 - `eda.ipynb`, `modeling.ipynb`, `evaluation.ipynb`: Exploratory, modeling and evaluation notebooks
 
-## Usage
+## ⚙️Usage
 1. Prepare your `train-data.csv` and `test-data.csv`.
 2. Run preprocessing:  
    `python Preprocessing.py`
@@ -20,5 +20,23 @@ Predict customer churn in telecom using Decision Tree, XGBoost, and SVM.
    `python predict.py`
 5. Run app:  
    `streamlit run app.py`
-## Dataset
+
+## 🛠️Tools & Technologies
+1. 🧪 Data Processing & Analysis
+   -- **Pandas** – Data manipulation and analysis
+   -- **NumPy** – Numerical computing
+2. 🔄 Preprocessing & Feature Engineering
+   --**Scikit-learn**
+   **LabelEncoder, MinMaxScaler – Encoding and scaling SelectKBest, PCA – Dimensionality reduction, train_test_split – Data splitting** 
+3. 🤖 Machine Learning Models
+   --**Scikit-learn** 
+   1. DecisionTreeClassifier
+   2. SVC (Support Vector Classifier)
+   3. XGBoost
+   4. XGBClassifier – Gradient Boosting Model
+4. 📈 Data Visualization
+   --**Matplotlib** – Basic plotting
+   --**Seaborn** – Statistical and heatmap visualizations
+   --**Power BI** - Creating a Dashboard
+## 📊Dataset
 Download from [Kaggle Telco Customer Churn](https://www.kaggle.com/blastchar/telco-customer-churn)
