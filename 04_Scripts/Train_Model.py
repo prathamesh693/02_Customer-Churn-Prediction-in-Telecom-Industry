@@ -41,9 +41,8 @@ for name, model in models.items():
 
 # ------- Save the best model -------
 save_dir = "R:/Projects/1_Data_Science & ML_Projects/02_Customer Churn Prediction in Telecom Industry"
-model_save_path = os.path.join(save_dir, "05_Model", f"best_model_{best_model_name.replace(' ', '_').lower()}.pkl")
-joblib.dump(best_model, model_save_path)
-print(f"Saved the best model as {model_save_path}")
+joblib.dump(best_model, "R:/Projects/1_Data_Science & ML_Projects/02_Customer Churn Prediction in Telecom Industry/05_Model/best_model_{best_model_name.lower()}.pkl")
+print("Saved the best model", f"{best_model_name}.pkl")
 
 # Save train and test datasets
 X_train_copy = X_train.copy()
