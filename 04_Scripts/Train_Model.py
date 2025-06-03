@@ -1,39 +1,34 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.feature_selection import SelectKBest, f_classif
-from sklearn.decomposition import PCA
 from xgboost import XGBClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import roc_auc_score
 import joblib
 import os
 
-# Load data
-df = pd.read_csv("R:/Projects/1_Data_Science & ML_Projects/02_Customer Churn Prediction in Telecom Industry/02_Data/Preprocessed_data.csv")
-X = df.drop('Churn', axis=1)
-y = df['Churn']
+# Load preprocessed data
+df = pd.read_csv("R:/Projects/1_Data_Science & ML_Projects/02_Customer Churn Prediction in Telecom Industry/02_Data/preprocessed_data.csv")
+X = df.drop("Churn", axis=1)
+y = df["Churn"]
 
-# Split data
+# Split into train-test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
-# Initialize models
-dt_model = DecisionTreeClassifier(random_state=42)
-xgb_model = XGBClassifier(use_label_encoder=False, eval_metric='logloss', random_state=42)
-svm_model = SVC(probability=True, random_state=42)
-
+# Define models
 models = {
-    'Decision Tree': dt_model,
-    'XGBoost': xgb_model,
-    'SVM': svm_model
+    "Decision Tree": DecisionTreeClassifier(random_state=42),
+    "XGBoost": XGBClassifier(use_label_encoder=False, eval_metric='logloss', random_state=42),
+    "SVM": SVC(probability=True, random_state=42)
 }
 
-best_model_name = None
+# Train and evaluate models
 best_model = None
+best_model_name = None
 best_auc = 0
 
 for name, model in models.items():
-    print(f"Training {name}...")
+    print(f"\nTraining {name}...")
     model.fit(X_train, y_train)
     y_proba = model.predict_proba(X_test)[:, 1]
     auc = roc_auc_score(y_test, y_proba)
@@ -44,46 +39,21 @@ for name, model in models.items():
         best_model = model
         best_model_name = name
 
-print(f"\nBest model: {best_model_name} with ROC AUC = {best_auc:.4f}")
-
-# ------- Save the best model, Train and Test dataset -------
+# ------- Save the best model -------
 save_dir = "R:/Projects/1_Data_Science & ML_Projects/02_Customer Churn Prediction in Telecom Industry"
 model_save_path = os.path.join(save_dir, "05_Model", f"best_model_{best_model_name.replace(' ', '_').lower()}.pkl")
 joblib.dump(best_model, model_save_path)
 print(f"Saved the best model as {model_save_path}")
 
-# Save train data
-train_df = X_train.copy()
-train_df['Actual'] = y_train.values
-train_data_path = os.path.join(save_dir, "06_Outputs", "train_data.csv")
-train_df.to_csv(train_data_path, index=False)
+# Save train and test datasets
+os.makedirs(save_dir, exist_ok=True)
 
-# Save test data
-test_df = X_test.copy()
-test_df['Actual'] = y_test.values
-test_data_path = os.path.join(save_dir, "06_Outputs", "test_data.csv")
-test_df.to_csv(test_data_path, index=False)
+X_train_copy = X_train.copy()
+X_train_copy["Actual"] = y_train
+X_train_copy.to_csv(os.path.join(save_dir, "06_Outputs", "train_data.csv"), index=False)
 
-# -------- Feature Selection --------
-selector = SelectKBest(score_func=f_classif, k=10)
-X_new = selector.fit_transform(X, y)
+X_test_copy = X_test.copy()
+X_test_copy["Actual"] = y_test
+X_test_copy.to_csv(os.path.join(save_dir, "06_Outputs", "test_data.csv"), index=False)
 
-# Get selected feature names
-selected_features = X.columns[selector.get_support()]
-
-# Create a DataFrame with selected features and target
-df_selected = X[selected_features].copy()
-df_selected['Churn'] = y.values
-
-# -------- PCA --------
-pca = PCA(n_components=5)
-X_pca = pca.fit_transform(df_selected.drop('Churn', axis=1))
-
-# Save the selector and PCA objects
-selector_path = os.path.join(save_dir, "05_Model", "selector.pkl")
-pca_path = os.path.join(save_dir, "05_Model", "pca.pkl")
-joblib.dump(selector, selector_path)
-joblib.dump(pca, pca_path)
-
-print(f"Saved feature selector as {selector_path}")
-print(f"Saved PCA object as {pca_path}")
+print("Train and test data saved in '06_Outputs/' directory.")
