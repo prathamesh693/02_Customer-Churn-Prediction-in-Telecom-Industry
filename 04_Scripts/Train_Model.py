@@ -46,8 +46,6 @@ joblib.dump(best_model, model_save_path)
 print(f"Saved the best model as {model_save_path}")
 
 # Save train and test datasets
-os.makedirs(save_dir, exist_ok=True)
-
 X_train_copy = X_train.copy()
 X_train_copy["Actual"] = y_train
 X_train_copy.to_csv(os.path.join(save_dir, "06_Outputs", "train_data.csv"), index=False)
