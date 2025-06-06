@@ -32,7 +32,7 @@ st.markdown("""
     .header-container {
         position: relative;
         width: 100%;
-        margin-bottom: 2rem;
+        margin-bottom: 0.5rem;
     }
     .header-title {
         position: absolute;
@@ -42,18 +42,23 @@ st.markdown("""
         color: white;
         text-align: center;
         width: 100%;
-        padding: 0 20px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        padding: 0 5px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    .header-title h1 {
+        font-size: 0.5rem;
+        margin-bottom: 0.3rem;
     }
     .header-subtitle {
-        font-size: 1.2rem;
-        margin-top: 1rem;
+        font-size: 0.3rem;
+        margin-top: 0.3rem;
+        opacity: 0.5;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # Header with enhanced visuals
-header_img = Image.open("Image/header_telecom.jpg")
+header_img = Image.open("Image/mobile_users.jpeg")
 
 # Create a container for the header
 col1, col2, col3 = st.columns([1, 2, 1])
